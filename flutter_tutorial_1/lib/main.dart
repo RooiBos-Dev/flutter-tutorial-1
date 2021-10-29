@@ -1,3 +1,4 @@
+import 'package:random_color/random_color.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -9,12 +10,12 @@ class MyApp extends StatelessWidget {
   // TODO: Create button screen.
   // TODO: Implement colour changes on click. (Stateful widget)
   // TODO: Clear button.
-  // Did rooibos-Dev enjoy his veggie pizza? 
+  // Did rooibos-Dev enjoy his veggie pizza?
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Flutter Tutorial 1',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -33,38 +34,36 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  RandomColor _randomColor = RandomColor();
+  Color initialColor = Colors.orangeAccent;
 
-  void _incrementCounter() {
+  void _changeButtonColour() {
+    Color _color = _randomColor.randomColor();
     setState(() {
-      _counter++;
+      initialColor = _color;
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    final ButtonStyle style = ButtonStyle(
+        backgroundColor: MaterialStateProperty.all<Color>(initialColor));
+
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text("Flutter Tutorial 1"),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
+            ElevatedButton(
+              style: style,
+              onPressed: () => _changeButtonColour(),
+              child: const Text('Oracle'),
             ),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
       ),
     );
   }
